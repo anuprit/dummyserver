@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Buildfaster</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style type="text/css">
+      body {
+        padding-top: 20px;
+        padding-bottom: 40px;
+      }
+
+      /* Custom container */
+      .container-narrow {
+        margin: 0 auto;
+        max-width: 700px;
+      }
+      .container-narrow > hr {
+        margin: 30px 0;
+      }
+
+      /* Main marketing message and sign up button */
+      .jumbotron {
+        margin: 60px 0;
+        text-align: center;
+      }
+      .jumbotron h1 {
+        font-size: 72px;
+        line-height: 1;
+      }
+      .jumbotron .btn {
+        font-size: 21px;
+        padding: 14px 24px;
+      }
+
+      /* Supporting marketing content */
+      .marketing {
+        margin: 60px 0;
+      }
+      .marketing p + h4 {
+        margin-top: 28px;
+      }
+    </style>
+</head>
+<body>
+<div class="container-narrow">
+
+      <div class="masthead">
+        <ul class="nav nav-pills pull-right">
+          <li><a href="/root">Home</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+          <% if current_user %>
+          	<li><%= link_to 'Sign out', destroy_user_session_path, :method => :delete %></li>
+          <% else %>
+          	<li><%= link_to 'Sign in', new_user_session_path, :method => :get %></li>
+          <% end %>
+        </ul>
+        <h3 class="muted">Build Faster</h3>
+      </div>
+
+      <hr>
+      <% if notice %>
+      <p class="alert"><%= notice %></p>
+      <% end %>
+      <% if alert %>
+      <p class="alert"><%= alert %></p>
+      <% end %>
+
+      <%= yield %>
+
+      <hr>
+
+      <div class="footer">
+        <p>&copy; KreativeKale 2012</p>
+      </div>
+
+    </div> <!-- /container -->
+
+</body>
+</html>
