@@ -1,6 +1,6 @@
 class RequestHandlerController < ApplicationController
 	def get_request
-		url = request.fullpath.gsub("/myurl", "")
+		url = request.fullpath.gsub("/api", "")
 		rr = Rr.where("url = ?", url).first
 		respond_to do |format|
 			format.json { render :json => rr.response}
@@ -8,7 +8,7 @@ class RequestHandlerController < ApplicationController
 	end
 
 	def post_request
-		url = request.fullpath.gsub("/myurl", "")
+		url = request.fullpath.gsub("/api", "")
 		rr = Rr.where("url = ?", url).first
 		respond_to do |format|
 			format.json { render :json => rr.response}
