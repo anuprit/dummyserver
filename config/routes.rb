@@ -3,8 +3,8 @@ Buildfaster::Application.routes.draw do
 
   resources :rrs
   resources :root
-  get 'myurl/:id/:id2', :action => :get_request, :controller => :requestHandler
-  get 'myurl/:id', :action => :post_request, :controller => :requestHandler
+  get 'api/:id/:id2', :action => :get_request, :controller => :requestHandler
+  get 'api/:id', :action => :post_request, :controller => :requestHandler
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
