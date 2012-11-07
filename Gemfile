@@ -22,6 +22,7 @@ group :assets do
   # gem 'therubyracer', :platforms => :ruby
 
   gem 'uglifier', '>= 1.0.3'
+  gem 'activerecord-postgresql-adapter'
 end
 
 group :development, :test do
