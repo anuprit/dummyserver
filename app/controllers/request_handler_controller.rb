@@ -1,5 +1,5 @@
 class RequestHandlerController < ApplicationController
-	:before_filter :validate_input
+	#:before_filter :validate_input
 	def get_request
 		url = request.fullpath.gsub("/api", "")
 		@rr = Rr.where("url = ?", url).first
@@ -22,10 +22,11 @@ class RequestHandlerController < ApplicationController
 	end
 
 	def validate_headers
+		match = false
 		headers = Header.where("rr_id = ?", @rr.id)
 		for header in headers
 			puts "churrttt 1"
-			false if request.headers["#{header.key}"] && request.headers["#{header.key}"] != header.value
+			match = true if request.headers["#{header.key}"] && request.headers["#{header.key}"] != header.value
 		end
 		puts "churrttt 2"
 		true
