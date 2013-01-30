@@ -1,0 +1,34 @@
+<%= form_for @header, :html => { :class => 'form-horizontal' } do |f| %>
+  <!--div class="control-group">
+    <%= f.label :rr_id, :class => 'control-label' %>
+    <div class="controls"-->
+      <!--%= select_tag "rr_id", options_for_select(@rrs.collect{ |u| [u.url, u.id] }) %-->
+
+      <!--%= select_tag "rr_id", options_from_collection_for_select(@rrs, "id", "url", 2) %>
+    </div>
+  </div-->
+  <div class="control-group">
+    <div class="controls">
+      <%= hidden_field_tag 'header[rr_id]', @rr.id %>
+    </div>
+  </div>
+
+  <div class="control-group">
+    <%= f.label :key, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :key, :class => 'text_field' %>
+    </div>
+  </div>
+  <div class="control-group">
+    <%= f.label :value, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :value, :class => 'text_field' %>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                headers_path, :class => 'btn' %>
+  </div>
+<% end %>

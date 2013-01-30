@@ -16,6 +16,10 @@ class RrsController < ApplicationController
   # GET /rrs/1.json
   def show
     @rr = Rr.where("id = ? and user_id =?", params[:id], current_user.id).first
+    @headers = Header.find_all_by_rr_id(@rr.id)
+    @parameters = Parameter.find_all_by_rr_id(@rr.id)
+    @url_header = '' + @rr.id.to_s + '/headers/new'
+    @url_params = '' + @rr.id.to_s + '/parameters/new'
 
     respond_to do |format|
       format.html # show.html.erb

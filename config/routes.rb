@@ -1,10 +1,16 @@
 Buildfaster::Application.routes.draw do
+  resources :parameters
+
+  resources :headers
+
   devise_for :users
 
   resources :rrs
   resources :root
   get 'api/:id/:id2', :action => :get_request, :controller => :requestHandler
   get 'api/:id', :action => :post_request, :controller => :requestHandler
+  match 'rrs/:id/headers/new' => "headers#new"
+  match 'rrs/:id/parameters/new' => "parameters#new"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -54,6 +60,7 @@ Buildfaster::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
+  match "*path" => "router#routing"
   root :to => 'root#index'
 
   # See how all your routes lay out with "rake routes"

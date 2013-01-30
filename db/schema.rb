@@ -11,7 +11,24 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107071240) do
+ActiveRecord::Schema.define(:version => 20130124073314) do
+
+  create_table "headers", :force => true do |t|
+    t.integer  "rr_id"
+    t.string   "key"
+    t.string   "value"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "parameters", :force => true do |t|
+    t.integer  "rr_id"
+    t.string   "key"
+    t.string   "value"
+    t.string   "param_type"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "rrs", :force => true do |t|
     t.string   "url"
