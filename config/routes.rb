@@ -1,4 +1,6 @@
 Buildfaster::Application.routes.draw do
+  resources :applications
+
   resources :parameters
 
   resources :headers
@@ -9,8 +11,6 @@ Buildfaster::Application.routes.draw do
   resources :root
   get 'api/:id/:id2', :action => :get_request, :controller => :requestHandler
   get 'api/:id', :action => :post_request, :controller => :requestHandler
-  match 'rrs/:id/headers/new' => "headers#new"
-  match 'rrs/:id/parameters/new' => "parameters#new"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -8,6 +8,8 @@
   <dd><%= @rr.url %></dd>
   <dt><strong><%= model_class.human_attribute_name(:response) %>:</strong></dt>
   <dd><%= @rr.response %></dd>
+  <dt><strong>CURL:</strong></dt>
+  <dd><%= get_curl_req(@rr, @application) %></dd>
 </dl>
 
 <div class="form-actions">
@@ -32,21 +34,17 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:rr_id) %></th>
       <th><%= model_class.human_attribute_name(:key) %></th>
       <th><%= model_class.human_attribute_name(:value) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
     <% @headers.each do |header| %>
       <tr>
-        <td><%= link_to header.id, header_path(header) %></td>
-        <td><%= header.rr_id %></td>
+        <td><%= link_to header.id, header_path(header, :rr_id => params[:id]) %></td>
         <td><%= header.key %></td>
         <td><%= header.value %></td>
-        <td><%=l header.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_header_path(header), :class => 'btn btn-mini' %>
@@ -62,7 +60,7 @@
 </table>
 
 <%= link_to t('.headers', :default => t("helpers.links.new")),
-            @url_header,
+            new_header_path(:rr_id => @rr.id),
             :class => 'btn btn-primary' %>
 
 <!-- Parameters class -->
@@ -74,11 +72,9 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:rr_id) %></th>
       <th><%= model_class.human_attribute_name(:key) %></th>
       <th><%= model_class.human_attribute_name(:value) %></th>
       <th><%= model_class.human_attribute_name(:param_type) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -86,11 +82,9 @@
     <% @parameters.each do |parameter| %>
       <tr>
         <td><%= link_to parameter.id, parameter_path(parameter) %></td>
-        <td><%= parameter.rr_id %></td>
         <td><%= parameter.key %></td>
         <td><%= parameter.value %></td>
         <td><%= parameter.param_type %></td>
-        <td><%=l parameter.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_parameter_path(parameter), :class => 'btn btn-mini' %>
@@ -106,5 +100,5 @@
 </table>
 
 <%= link_to t('.paramters', :default => t("helpers.links.new")),
-            @url_params,
+            new_parameter_path(:rr_id => @rr.id),
             :class => 'btn btn-primary' %>

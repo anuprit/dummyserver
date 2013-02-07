@@ -1,7 +1,5 @@
 class RootController < ApplicationController
-	def index
-		if current_user
-			redirect_to rrs_path
-		end
+	def index		
+		redirect_to applications_path if current_user
 	end
 end

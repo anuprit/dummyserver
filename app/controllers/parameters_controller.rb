@@ -1,20 +1,10 @@
 class ParametersController < ApplicationController
-  # GET /parameters
-  # GET /parameters.json
-  def index
-    @parameters = Parameter.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @parameters }
-    end
-  end
+  before_filter :authenticate_user!
+  before_filter :find_parameter, :except => [:create, :new]
 
   # GET /parameters/1
   # GET /parameters/1.json
   def show
-    @parameter = Parameter.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @parameter }
@@ -25,7 +15,7 @@ class ParametersController < ApplicationController
   # GET /parameters/new.json
   def new
     @parameter = Parameter.new
-    @rr = Rr.where("id = ?", params[:id]).first
+    @rr = Rr.where("id = ?", params[:rr_id]).first
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @parameter }
@@ -34,7 +24,6 @@ class ParametersController < ApplicationController
 
   # GET /parameters/1/edit
   def edit
-    @parameter = Parameter.find(params[:id])
   end
 
   # POST /parameters
@@ -44,7 +33,7 @@ class ParametersController < ApplicationController
 
     respond_to do |format|
       if @parameter.save
-        @rr = Rr.find_by_id(params[:header][:rr_id])
+        @rr = Rr.find_by_id(params[:parameter][:rr_id])
         format.html { redirect_to @rr, notice: 'Parameter was successfully created.' }
         format.json { render json: @rr, status: :created, location: @rr }
       else
@@ -57,8 +46,6 @@ class ParametersController < ApplicationController
   # PUT /parameters/1
   # PUT /parameters/1.json
   def update
-    @parameter = Parameter.find(params[:id])
-
     respond_to do |format|
       if @parameter.update_attributes(params[:parameter])
         format.html { redirect_to @parameter, notice: 'Parameter was successfully updated.' }
@@ -73,7 +60,6 @@ class ParametersController < ApplicationController
   # DELETE /parameters/1
   # DELETE /parameters/1.json
   def destroy
-    @parameter = Parameter.find(params[:id])
     @parameter.destroy
 
     respond_to do |format|
@@ -81,4 +67,11 @@ class ParametersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  private
+  def find_parameter
+    @rr = Rr.find_by_id(params[:rr_id])
+    @paramter = Header.get_request_header(params[:id], @rr, current_user)
+  end
+
 end

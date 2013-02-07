@@ -14,6 +14,12 @@
   </div>
 
   <div class="control-group">
+    <div class="controls">
+      <%= hidden_field_tag 'rr_id', @rr.id %>
+    </div>
+  </div>
+
+  <div class="control-group">
     <%= f.label :key, :class => 'control-label' %>
     <div class="controls">
       <%= f.text_field :key, :class => 'text_field' %>

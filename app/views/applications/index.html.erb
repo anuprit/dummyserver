@@ -1,27 +1,25 @@
-<%- model_class = Rr -%>
+<%- model_class = Application -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:url) %></th>
-      <th><%= model_class.human_attribute_name(:response) %></th>
+      <th><%= model_class.human_attribute_name(:name) %></th>
+      <th><%= model_class.human_attribute_name(:api_token) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
   <tbody>
-    <% @rrs.each do |rr| %>
+    <% @applications.each do |application| %>
       <tr>
-        <td><%= link_to rr.id, rr_path(rr, :app_id => params[:app_id]) %></td>
-        <td><%= rr.url %></td>
-        <td><%= rr.response %></td>
+        <td><%= link_to application.name, rrs_path(:app_id => application.id) %></td>
+        <td><%= application.api_token %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_rr_path(rr), :class => 'btn btn-mini' %>
+                      edit_application_path(application), :class => 'btn btn-mini' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      rr_path(rr),
+                      application_path(application),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
@@ -32,5 +30,5 @@
 </table>
 
 <%= link_to t('.new', :default => t("helpers.links.new")),
-            new_rr_path(:app_id => @application.id),
+            new_application_path,
             :class => 'btn btn-primary' %>
