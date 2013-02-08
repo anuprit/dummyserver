@@ -4,9 +4,7 @@ class RequestHandlerController < ApplicationController
 	before_filter :restrict_access
 
 	def get_request
-		# TODO - Use custom url schemes to make this better
-		url = request.fullpath.gsub("/api", "")
-		@rr = Rr.where("url = ? and application_id = ?", url, @application.id).first
+		@rr = Rr.where("url = ? and application_id = ?", "/#{params[:url]}", @application.id).first
 		respond_to do |format|
 			format.json { render :json => @rr.response}
 			format.xml  { render :xml => @rr.response}
@@ -14,6 +12,7 @@ class RequestHandlerController < ApplicationController
 		end
 	end
 
+	# TODO : implement this later
 	def post_request
 		url = request.fullpath.gsub("/api", "")
 		@rr = Rr.where("url = ?", url).first
